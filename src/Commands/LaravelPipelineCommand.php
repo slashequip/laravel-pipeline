@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Slashequip\LaravelPipeline\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class LaravelPipelineCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'laravel-pipeline';
 
     public $description = 'My command';
 

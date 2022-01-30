@@ -1,17 +1,17 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "slashequip/laravel-pipeline",
+    "description": "An opinionated, improved pipeline for Laravel projects to help breakdown complex logic into easily readable chunks.",
     "keywords": [
-        ":vendor_name",
+        "slashequip",
         "laravel",
-        ":package_slug"
+        "laravel-pipeline"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/slashequip/laravel-pipeline",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Sam Jones",
+            "email": "sam@slashequip.com",
             "role": "Developer"
         }
     ],
@@ -34,13 +34,13 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories"
+            "Slashequip\\LaravelPipeline\\": "src",
+            "Slashequip\\LaravelPipeline\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "Slashequip\\LaravelPipeline\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -54,10 +54,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "Slashequip\\LaravelPipeline\\LaravelPipelineServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "LaravelPipeline": "Slashequip\\LaravelPipeline\\Facades\\LaravelPipeline"
             }
         }
     },
