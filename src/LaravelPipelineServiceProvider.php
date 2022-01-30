@@ -2,9 +2,9 @@
 
 namespace Slashequip\LaravelPipeline;
 
+use Slashequip\LaravelPipeline\Commands\LaravelPipelineCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Slashequip\LaravelPipeline\Commands\LaravelPipelineCommand;
 
 class LaravelPipelineServiceProvider extends PackageServiceProvider
 {
