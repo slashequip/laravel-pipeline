@@ -1,11 +1,11 @@
-# An opinionated, improved pipeline for Laravel projects to help breakdown complex logic into easily readable chunks.
+# Laravel Pipeline
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/slashequip/laravel-pipeline.svg?style=flat-square)](https://packagist.org/packages/slashequip/laravel-pipeline)
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/slashequip/laravel-pipeline/run-tests?label=tests)](https://github.com/slashequip/laravel-pipeline/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/slashequip/laravel-pipeline/Check%20&%20fix%20styling?label=code%20style)](https://github.com/slashequip/laravel-pipeline/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/slashequip/laravel-pipeline.svg?style=flat-square)](https://packagist.org/packages/slashequip/laravel-pipeline)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+An opinionated, improved pipeline for Laravel projects to help breakdown complex logic into easily readable chunks.
 
 ## Support us
 
@@ -23,13 +23,6 @@ You can install the package via composer:
 composer require slashequip/laravel-pipeline
 ```
 
-You can publish and run the migrations with:
-
-```bash
-php artisan vendor:publish --tag="laravel-pipeline-migrations"
-php artisan migrate
-```
-
 You can publish the config file with:
 
 ```bash
@@ -41,12 +34,6 @@ This is the contents of the published config file:
 ```php
 return [
 ];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="laravel-pipeline-views"
 ```
 
 ## Usage
