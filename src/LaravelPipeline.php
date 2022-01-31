@@ -8,7 +8,6 @@ class LaravelPipeline
 {
     public function __construct(
         public Container $app
-    ) {}
-
-
+    ) {
+    }
 }
