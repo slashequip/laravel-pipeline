@@ -3,7 +3,6 @@
 namespace Slashequip\LaravelPipeline\Pipes;
 
 use Slashequip\LaravelPipeline\Collections\PipeCollection;
-use Slashequip\LaravelPipeline\Contracts\Pipe;
 use Slashequip\LaravelPipeline\Contracts\Transport;
 
 abstract class BranchablePipe extends SimplePipe

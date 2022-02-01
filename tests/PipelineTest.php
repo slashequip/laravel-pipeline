@@ -1,18 +1,18 @@
 <?php
 
-use Slashequip\LaravelPipeline\Pipeline;
-use Slashequip\LaravelPipeline\Tests\Stubs\TestSetIdPipe;
-use Slashequip\LaravelPipeline\Tests\Stubs\TestTransport;
-use Slashequip\LaravelPipeline\Tests\Stubs\TestBranchPipe;
-use Slashequip\LaravelPipeline\Tests\Stubs\TestSetNamePipe;
 use Slashequip\LaravelPipeline\Exceptions\NoPipesSetException;
 use Slashequip\LaravelPipeline\Exceptions\NoTransportSetException;
+use Slashequip\LaravelPipeline\Pipeline;
 use Slashequip\LaravelPipeline\Tests\Exceptions\QuietTestException;
-use Slashequip\LaravelPipeline\Tests\Stubs\TestThrowsExceptionPipe;
 use Slashequip\LaravelPipeline\Tests\Exceptions\RegularTestException;
 use Slashequip\LaravelPipeline\Tests\Exceptions\TeardownTestException;
+use Slashequip\LaravelPipeline\Tests\Stubs\TestBranchPipe;
+use Slashequip\LaravelPipeline\Tests\Stubs\TestSetIdPipe;
+use Slashequip\LaravelPipeline\Tests\Stubs\TestSetNamePipe;
+use Slashequip\LaravelPipeline\Tests\Stubs\TestThrowsExceptionPipe;
 use Slashequip\LaravelPipeline\Tests\Stubs\TestThrowsQuietExceptionPipe;
 use Slashequip\LaravelPipeline\Tests\Stubs\TestThrowsTeardownExceptionPipe;
+use Slashequip\LaravelPipeline\Tests\Stubs\TestTransport;
 
 it('will throw an exception when running the pipeline with no transport set', function () {
     // Given we have a pipeline

@@ -2,8 +2,8 @@
 
 namespace Slashequip\LaravelPipeline\Transports;
 
-use Slashequip\LaravelPipeline\Pipeline;
 use Slashequip\LaravelPipeline\Contracts\Transport;
+use Slashequip\LaravelPipeline\Pipeline;
 use Slashequip\LaravelPipeline\Traits\Makeable;
 
 class SimpleTransport implements Transport
