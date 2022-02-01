@@ -2,8 +2,6 @@
 
 namespace Slashequip\LaravelPipeline;
 
-use Closure;
-use Throwable;
 use Illuminate\Contracts\Container\Container;
 use Slashequip\LaravelPipeline\Contracts\Pipe;
 use Slashequip\LaravelPipeline\Contracts\Transport;
