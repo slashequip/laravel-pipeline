@@ -2,13 +2,13 @@
 
 namespace Slashequip\LaravelPipeline;
 
-use Throwable;
 use Illuminate\Contracts\Container\Container;
 use Slashequip\LaravelPipeline\Collections\PipeCollection;
-use Slashequip\LaravelPipeline\Contracts\Pipe;
-use Slashequip\LaravelPipeline\Contracts\Transport;
 use Slashequip\LaravelPipeline\Contracts\CanHandleQuietly;
 use Slashequip\LaravelPipeline\Contracts\CanPerformTearDown;
+use Slashequip\LaravelPipeline\Contracts\Pipe;
+use Slashequip\LaravelPipeline\Contracts\Transport;
+use Throwable;
 
 class Pipeline
 {
@@ -55,6 +55,7 @@ class Pipeline
                 function (Throwable $e) use ($pipe, $teardownStack) {
                     if ($pipe instanceof CanHandleQuietly) {
                         ! $pipe->shouldReport() ?: report($e);
+
                         return;
                     }
 
