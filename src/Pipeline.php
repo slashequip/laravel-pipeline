@@ -3,12 +3,15 @@
 namespace Slashequip\LaravelPipeline;
 
 use Closure;
+use Throwable;
 use Illuminate\Contracts\Container\Container;
 use Slashequip\LaravelPipeline\Contracts\Pipe;
 use Slashequip\LaravelPipeline\Contracts\Transport;
 
 class Pipeline
 {
+    protected Transport $transport;
+
     protected PipeCollection $pipes;
 
     public function __construct(
@@ -33,9 +36,11 @@ class Pipeline
     public function deliver(): Transport
     {
         // Run pipeline logic
-        do {
+        while (! $this->pipes->hasRunAll()) {
+            $pipe = $this->pipes->next();
 
-        } while ($this->pipes->hasRunAll());
+            $pipe->handle($this->transport);
+        }
 
         return $this->transport;
     }
@@ -45,5 +50,8 @@ class Pipeline
         return tap($this->deliver(), $callback);
     }
 
-    public function routeBranch(Pipe ...$pipes)
+    public function routeBranch(Pipe ...$pipes): void
+    {
+        $this->pipes->inject(...$pipes);
+    }
 }
