@@ -4,7 +4,7 @@ namespace Slashequip\LaravelPipeline\Contracts;
 
 use Throwable;
 
-interface CanPerformTearDown
+interface CanPerformTeardown
 {
     public function teardown(Transport $transport, Throwable $e): void;
 }

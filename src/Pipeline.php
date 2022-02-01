@@ -8,11 +8,16 @@ use Slashequip\LaravelPipeline\Contracts\CanHandleQuietly;
 use Slashequip\LaravelPipeline\Contracts\CanPerformTearDown;
 use Slashequip\LaravelPipeline\Contracts\Pipe;
 use Slashequip\LaravelPipeline\Contracts\Transport;
+use Slashequip\LaravelPipeline\Exceptions\NoPipesSetException;
+use Slashequip\LaravelPipeline\Exceptions\NoTransportSetException;
+use Slashequip\LaravelPipeline\Traits\Makeable;
 use Throwable;
 
 class Pipeline
 {
-    protected Transport $transport;
+    use Makeable;
+
+    protected ?Transport $transport = null;
 
     protected PipeCollection $pipes;
 
@@ -25,6 +30,7 @@ class Pipeline
     public function send(Transport $transport): static
     {
         $this->transport = $transport;
+        $this->transport->setPipeline($this);
 
         return $this;
     }
@@ -38,6 +44,14 @@ class Pipeline
 
     public function deliver(): Transport
     {
+        if (! $this->transport) {
+            throw new NoTransportSetException();
+        }
+
+        if (count($this->pipes->getPipes()) === 0) {
+            throw new NoPipesSetException();
+        }
+
         $teardownStack = collect();
 
         // Run pipeline logic
@@ -46,7 +60,7 @@ class Pipeline
 
             rescue(
                 function () use ($pipe, $teardownStack) {
-                    if ($pipe instanceof CanPerformTearDown) {
+                    if ($pipe instanceof CanPerformTeardown) {
                         $teardownStack->prepend($pipe);
                     }
 

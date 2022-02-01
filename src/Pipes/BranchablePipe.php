@@ -6,7 +6,7 @@ use Slashequip\LaravelPipeline\Collections\PipeCollection;
 use Slashequip\LaravelPipeline\Contracts\Pipe;
 use Slashequip\LaravelPipeline\Contracts\Transport;
 
-abstract class BranchablePipe implements Pipe
+abstract class BranchablePipe extends SimplePipe
 {
     public function handle(Transport $transport): void
     {

@@ -9,8 +9,6 @@ class LaravelPipelineServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
-        $package
-            ->name('laravel-pipeline')
-            ->hasConfigFile();
+        $package->name('laravel-pipeline');
     }
 }

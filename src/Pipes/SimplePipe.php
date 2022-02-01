@@ -3,11 +3,9 @@
 namespace Slashequip\LaravelPipeline\Pipes;
 
 use Slashequip\LaravelPipeline\Contracts\Pipe;
+use Slashequip\LaravelPipeline\Traits\Makeable;
 
-abstract class BranchablePipe implements Pipe
+abstract class SimplePipe implements Pipe
 {
-    public static function make(): static
-    {
-        return app(static::class);
-    }
+    use Makeable;
 }

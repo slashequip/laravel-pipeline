@@ -47,6 +47,6 @@ class PipeCollection
         return
             count($this->pipes) === 0
             || ($this->runningIndex !== null
-            && $this->runningIndex === count($this->pipes));
+            && $this->runningIndex === (count($this->pipes) - 1));
     }
 }
