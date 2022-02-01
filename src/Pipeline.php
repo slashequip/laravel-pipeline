@@ -2,9 +2,13 @@
 
 namespace Slashequip\LaravelPipeline;
 
+use Throwable;
 use Illuminate\Contracts\Container\Container;
+use Slashequip\LaravelPipeline\Collections\PipeCollection;
 use Slashequip\LaravelPipeline\Contracts\Pipe;
 use Slashequip\LaravelPipeline\Contracts\Transport;
+use Slashequip\LaravelPipeline\Contracts\CanHandleQuietly;
+use Slashequip\LaravelPipeline\Contracts\CanPerformTearDown;
 
 class Pipeline
 {
@@ -15,6 +19,7 @@ class Pipeline
     public function __construct(
         public Container $app
     ) {
+        $this->pipes = new PipeCollection();
     }
 
     public function send(Transport $transport): static
@@ -26,18 +31,44 @@ class Pipeline
 
     public function through(Pipe ...$pipes): static
     {
-        $this->pipes = new PipeCollection($pipes);
+        $this->pipes = new PipeCollection(...$pipes);
 
         return $this;
     }
 
     public function deliver(): Transport
     {
+        $teardownStack = collect();
+
         // Run pipeline logic
         while (! $this->pipes->hasRunAll()) {
             $pipe = $this->pipes->next();
 
-            $pipe->handle($this->transport);
+            rescue(
+                function () use ($pipe, $teardownStack) {
+                    if ($pipe instanceof CanPerformTearDown) {
+                        $teardownStack->prepend($pipe);
+                    }
+
+                    $pipe->handle($this->transport);
+                },
+                function (Throwable $e) use ($pipe, $teardownStack) {
+                    if ($pipe instanceof CanHandleQuietly) {
+                        ! $pipe->shouldReport() ?: report($e);
+                        return;
+                    }
+
+                    $teardownStack
+                        ->each(function (CanPerformTearDown $pipe) use ($e) {
+                            rescue(function () use ($pipe, $e) {
+                                $pipe->teardown($this->transport, $e);
+                            });
+                        });
+
+                    throw $e;
+                },
+                false
+            );
         }
 
         return $this->transport;
@@ -48,8 +79,8 @@ class Pipeline
         return tap($this->deliver(), $callback);
     }
 
-    public function routeBranch(Pipe ...$pipes): void
+    public function patchBranch(Pipe ...$pipes): void
     {
-        $this->pipes->inject(...$pipes);
+        $this->pipes->patch(...$pipes);
     }
 }

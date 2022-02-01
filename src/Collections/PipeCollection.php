@@ -6,14 +6,16 @@ use Slashequip\LaravelPipeline\Contracts\Pipe;
 
 class PipeCollection
 {
+    private array $pipes;
+
     private ?int $runningIndex = null;
 
-    public function __construct(
-        private Pipe ...$pipes
-    ) {
+    public function __construct(Pipe ...$pipes)
+    {
+        $this->pipes = $pipes;
     }
 
-    public function getPipes()
+    public function getPipes(): array
     {
         return $this->pipes;
     }
@@ -30,7 +32,7 @@ class PipeCollection
         return $nextPipe;
     }
 
-    public function inject(Pipe ...$pipes): void
+    public function patch(Pipe ...$pipes): void
     {
         $this->pipes = array_merge(
             array_slice($this->pipes, 0, ($this->runningIndex + 1)),

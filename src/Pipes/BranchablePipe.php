@@ -16,7 +16,7 @@ abstract class BranchablePipe implements Pipe
             return;
         }
 
-        $transport->getPipeline()->routeBranch($branch);
+        $transport->getPipeline()->patchBranch(...$branch->getPipes());
     }
 
     abstract public function branch(Transport $transport): ?PipeCollection;
