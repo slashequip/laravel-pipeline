@@ -3,6 +3,7 @@
 use Slashequip\LaravelPipeline\Exceptions\NoPipesSetException;
 use Slashequip\LaravelPipeline\Exceptions\NoTransportSetException;
 use Slashequip\LaravelPipeline\Pipeline;
+use Slashequip\LaravelPipeline\Pipes\AnonymousPipe;
 use Slashequip\LaravelPipeline\Tests\Exceptions\QuietTestException;
 use Slashequip\LaravelPipeline\Tests\Exceptions\RegularTestException;
 use Slashequip\LaravelPipeline\Tests\Exceptions\TeardownTestException;
@@ -169,4 +170,25 @@ it('will run branch pipes', function () {
     $this->assertSame(123, $transport->get('id'));
     $this->assertSame(69, $transport->get('age'));
     $this->assertSame("Jane Doe", $transport->get('name'));
+});
+
+it('will run an anonymous pipe', function () {
+    // Given we have a pipeline
+    $pipeline = Pipeline::make();
+
+    // And a variable to test
+    $touched = new stdClass;
+    $touched->status = false;
+
+    // And we have set a transport
+    $pipeline->send(TestTransport::make());
+
+    // And we have set empty pipes
+    $pipeline->through(AnonymousPipe::make(fn () => $touched->status = true));
+
+    // When we run the pipeline
+    $pipeline->deliver();
+
+    // The we have set the data as expected
+    $this->assertTrue($touched->status);
 });
