@@ -15,24 +15,20 @@ You can install the package via composer:
 composer require slashequip/laravel-pipeline
 ```
 
-You can publish the config file with:
-
-```bash
-php artisan vendor:publish --tag="laravel-pipeline-config"
-```
-
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
-
 ## Usage
 
+For full useage view the [full documentation](https://laravelpipeline.com).
+
 ```php
-$laravelPipeline = new Slashequip\LaravelPipeline();
-echo $laravelPipeline->echoPhrase('Hello, Slashequip!');
+$pipeline = Pipeline::make();
+$pipeline->send(UserRegistrationTransport::make());
+$pipeline->through(
+    CreateUserPipe::make(),
+    NotifiyUserRegisteredPipe::make(),
+    AddUserToSegmentPipe::make(),
+    LogUserInPipe::make()
+);
+$finalTransportState = $pipeline->deliver();
 ```
 
 ## Testing
