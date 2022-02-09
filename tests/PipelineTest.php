@@ -177,7 +177,7 @@ it('will run an anonymous pipe', function () {
     $pipeline = Pipeline::make();
 
     // And a variable to test
-    $touched = new stdClass;
+    $touched = new stdClass();
     $touched->status = false;
 
     // And we have set a transport
