@@ -5,7 +5,7 @@ namespace Slashequip\LaravelPipeline;
 use Illuminate\Contracts\Container\Container;
 use Slashequip\LaravelPipeline\Collections\PipeCollection;
 use Slashequip\LaravelPipeline\Contracts\CanHandleQuietly;
-use Slashequip\LaravelPipeline\Contracts\CanPerformTearDown;
+use Slashequip\LaravelPipeline\Contracts\CanPerformTeardown;
 use Slashequip\LaravelPipeline\Contracts\Pipe;
 use Slashequip\LaravelPipeline\Contracts\Transport;
 use Slashequip\LaravelPipeline\Exceptions\NoPipesSetException;
@@ -74,7 +74,7 @@ class Pipeline
                     }
 
                     $teardownStack
-                        ->each(function (CanPerformTearDown $pipe) use ($e) {
+                        ->each(function (CanPerformTeardown $pipe) use ($e) {
                             rescue(function () use ($pipe, $e) {
                                 $pipe->teardown($this->transport, $e);
                             });
