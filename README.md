@@ -17,14 +17,14 @@ composer require slashequip/laravel-pipeline
 
 ## Usage
 
-For full useage view the [full documentation](https://laravelpipeline.com).
+For full usage view the [full documentation](https://laravelpipeline.com).
 
 ```php
 $pipeline = Pipeline::make();
 $pipeline->send(UserRegistrationTransport::make());
 $pipeline->through(
     CreateUserPipe::make(),
-    NotifiyUserRegisteredPipe::make(),
+    NotifyUserRegisteredPipe::make(),
     AddUserToSegmentPipe::make(),
     LogUserInPipe::make()
 );
