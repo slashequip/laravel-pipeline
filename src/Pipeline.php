@@ -89,7 +89,7 @@ class Pipeline
         return $this->transport;
     }
 
-    public function deliverAnd(callable $callback = null): mixed
+    public function deliverAnd(?callable $callback = null): mixed
     {
         return tap($this->deliver(), $callback);
     }

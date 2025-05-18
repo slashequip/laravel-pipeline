@@ -16,26 +16,19 @@
         }
     ],
     "require": {
-        "php": "^8.0",
-        "spatie/laravel-package-tools": "^1.9.2",
-        "illuminate/contracts": "^9.0"
+        "php": ">=8.2",
+        "illuminate/contracts": "^11.0|^12.0"
     },
     "require-dev": {
-        "nunomaduro/collision": "^6.0",
-        "nunomaduro/larastan": "^1.0",
-        "orchestra/testbench": "^7.16",
-        "pestphp/pest": "^1.21",
-        "pestphp/pest-plugin-laravel": "^1.1",
-        "phpstan/extension-installer": "^1.1",
-        "phpstan/phpstan-deprecation-rules": "^1.0",
-        "phpstan/phpstan-phpunit": "^1.0",
-        "phpunit/phpunit": "^9.5",
-        "spatie/laravel-ray": "^1.26"
+        "larastan/larastan": "^3.4",
+        "nunomaduro/collision": "^8.8",
+        "orchestra/testbench": "^9.14|^10.0",
+        "pestphp/pest": "^3.8",
+        "pestphp/pest-plugin-laravel": "^3.2"
     },
     "autoload": {
         "psr-4": {
-            "Slashequip\\LaravelPipeline\\": "src",
-            "Slashequip\\LaravelPipeline\\Database\\Factories\\": "database/factories"
+            "Slashequip\\LaravelPipeline\\": "src"
         }
     },
     "autoload-dev": {
@@ -51,18 +44,7 @@
     "config": {
         "sort-packages": true,
         "allow-plugins": {
-            "pestphp/pest-plugin": true,
-            "phpstan/extension-installer": true
-        }
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Slashequip\\LaravelPipeline\\LaravelPipelineServiceProvider"
-            ],
-            "aliases": {
-                "LaravelPipeline": "Slashequip\\LaravelPipeline\\Facades\\LaravelPipeline"
-            }
+            "pestphp/pest-plugin": true
         }
     },
     "minimum-stability": "dev",
