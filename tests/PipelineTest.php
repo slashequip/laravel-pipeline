@@ -2,10 +2,10 @@
 
 use Slashequip\LaravelPipeline\Exceptions\NoPipesSetException;
 use Slashequip\LaravelPipeline\Exceptions\NoTransportSetException;
+use Slashequip\LaravelPipeline\HookRegistry;
 use Slashequip\LaravelPipeline\Pipeline;
 use Slashequip\LaravelPipeline\Pipes\AnonymousPipe;
 use Slashequip\LaravelPipeline\Pipes\HookablePipe;
-use Slashequip\LaravelPipeline\HookRegistry;
 use Slashequip\LaravelPipeline\Tests\Exceptions\QuietTestException;
 use Slashequip\LaravelPipeline\Tests\Exceptions\RegularTestException;
 use Slashequip\LaravelPipeline\Tests\Exceptions\TeardownTestException;
