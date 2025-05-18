@@ -192,3 +192,27 @@ it('will run an anonymous pipe', function () {
     // Then we have set the data as expected
     $this->assertTrue($touched->status);
 });
+
+it('will execute a callback via deliverAnd and return the transport', function () {
+    // Given we have a pipeline
+    $pipeline = Pipeline::make();
+
+    // And we have set a transport
+    $transport = TestTransport::make();
+    $pipeline->send($transport);
+
+    // And we have set a simple pipe
+    $pipeline->through(TestSetIdPipe::make());
+
+    $callbackCalled = false;
+
+    // When we run deliverAnd
+    $result = $pipeline->deliverAnd(function ($passed) use (&$callbackCalled, $transport) {
+        $callbackCalled = true;
+        \PHPUnit\Framework\Assert::assertSame($transport, $passed);
+    });
+
+    // Then the callback was invoked and the transport returned
+    expect($callbackCalled)->toBeTrue();
+    expect($result)->toBe($transport);
+});
