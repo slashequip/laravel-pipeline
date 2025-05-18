@@ -5,18 +5,18 @@ namespace Slashequip\LaravelPipeline\Pipes;
 use Slashequip\LaravelPipeline\Collections\PipeCollection;
 use Slashequip\LaravelPipeline\Contracts\Transport;
 
-abstract class BranchablePipe extends SimplePipe
+abstract class PatchablePipe extends SimplePipe
 {
     public function handle(Transport $transport): void
     {
-        $branch = $this->branch($transport);
+        $patch = $this->patch($transport);
 
-        if (! $branch) {
+        if (! $patch) {
             return;
         }
 
-        $transport->getPipeline()->patchBranch(...$branch->getPipes());
+        $transport->getPipeline()->patchBranch(...$patch->getPipes());
     }
 
-    abstract public function branch(Transport $transport): ?PipeCollection;
+    abstract public function patch(Transport $transport): ?PipeCollection;
 }
