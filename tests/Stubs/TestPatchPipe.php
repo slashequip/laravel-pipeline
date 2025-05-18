@@ -4,11 +4,11 @@ namespace Slashequip\LaravelPipeline\Tests\Stubs;
 
 use Slashequip\LaravelPipeline\Collections\PipeCollection;
 use Slashequip\LaravelPipeline\Contracts\Transport;
-use Slashequip\LaravelPipeline\Pipes\BranchablePipe;
+use Slashequip\LaravelPipeline\Pipes\PatchablePipe;
 
-class TestBranchPipe extends BranchablePipe
+class TestPatchPipe extends PatchablePipe
 {
-    public function branch(Transport $transport): ?PipeCollection
+    public function patch(Transport $transport): ?PipeCollection
     {
         return new PipeCollection(TestSetAgePipe::make());
     }

@@ -4,10 +4,13 @@ use Slashequip\LaravelPipeline\Exceptions\NoPipesSetException;
 use Slashequip\LaravelPipeline\Exceptions\NoTransportSetException;
 use Slashequip\LaravelPipeline\Pipeline;
 use Slashequip\LaravelPipeline\Pipes\AnonymousPipe;
+use Slashequip\LaravelPipeline\Pipes\HookablePipe;
+use Slashequip\LaravelPipeline\HookRegistry;
 use Slashequip\LaravelPipeline\Tests\Exceptions\QuietTestException;
 use Slashequip\LaravelPipeline\Tests\Exceptions\RegularTestException;
 use Slashequip\LaravelPipeline\Tests\Exceptions\TeardownTestException;
-use Slashequip\LaravelPipeline\Tests\Stubs\TestBranchPipe;
+use Slashequip\LaravelPipeline\Tests\Stubs\TestPatchPipe;
+use Slashequip\LaravelPipeline\Tests\Stubs\TestSetAgePipe;
 use Slashequip\LaravelPipeline\Tests\Stubs\TestSetIdPipe;
 use Slashequip\LaravelPipeline\Tests\Stubs\TestSetNamePipe;
 use Slashequip\LaravelPipeline\Tests\Stubs\TestThrowsExceptionPipe;
@@ -148,7 +151,7 @@ it('will run multiple pipes', function () {
     $this->assertSame("Jane Doe", $transport->get('name'));
 });
 
-it('will run branch pipes', function () {
+it('will run patch pipes', function () {
     // Given we have a pipeline
     $pipeline = Pipeline::make();
 
@@ -158,7 +161,7 @@ it('will run branch pipes', function () {
     // And we have set empty pipes
     $pipeline->through(
         TestSetIdPipe::make(),
-        TestBranchPipe::make(),
+        TestPatchPipe::make(),
         TestSetNamePipe::make()
     );
 
@@ -215,4 +218,23 @@ it('will execute a callback via deliverAnd and return the transport', function (
     // Then the callback was invoked and the transport returned
     expect($callbackCalled)->toBeTrue();
     expect($result)->toBe($transport);
+});
+
+it('will run hookable pipes', function () {
+    HookRegistry::register('user.pipeline', TestSetAgePipe::make());
+
+    $pipeline = Pipeline::make();
+    $pipeline->send(TestTransport::make());
+    $pipeline->through(
+        TestSetIdPipe::make(),
+        HookablePipe::withHook('user.pipeline'),
+        TestSetNamePipe::make(),
+    );
+
+    /** @var TestTransport $transport */
+    $transport = $pipeline->deliver();
+
+    expect($transport->get('id'))->toBe(123);
+    expect($transport->get('age'))->toBe(69);
+    expect($transport->get('name'))->toBe('Jane Doe');
 });
