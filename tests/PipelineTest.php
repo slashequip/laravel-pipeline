@@ -125,7 +125,7 @@ it('will run a pipe', function () {
     /** @var TestTransport $transport */
     $transport = $pipeline->deliver();
 
-    // The we have set the data as expected
+    // Then we have set the data as expected
     $this->assertSame(123, $transport->get('id'));
 });
 
@@ -143,7 +143,7 @@ it('will run multiple pipes', function () {
     /** @var TestTransport $transport */
     $transport = $pipeline->deliver();
 
-    // The we have set the data as expected
+    // Then we have set the data as expected
     $this->assertSame(123, $transport->get('id'));
     $this->assertSame("Jane Doe", $transport->get('name'));
 });
@@ -166,7 +166,7 @@ it('will run branch pipes', function () {
     /** @var TestTransport $transport */
     $transport = $pipeline->deliver();
 
-    // The we have set the data as expected
+    // Then we have set the data as expected
     $this->assertSame(123, $transport->get('id'));
     $this->assertSame(69, $transport->get('age'));
     $this->assertSame("Jane Doe", $transport->get('name'));
@@ -189,6 +189,6 @@ it('will run an anonymous pipe', function () {
     // When we run the pipeline
     $pipeline->deliver();
 
-    // The we have set the data as expected
+    // Then we have set the data as expected
     $this->assertTrue($touched->status);
 });
